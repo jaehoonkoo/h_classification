@@ -1,0 +1,101 @@
+###########################################################################################################
+##################################################### conversion
+
+# OSP epoch 1 lin hc-res 
+// export CUDA_VISIBLE_DEVICES=0 && nohup python ~/code-tf/hc/hc-s2s-oi-v1-2-pr-run-test.py -server="nu" -model="hc" -idx="idx-40" -batch=32 -lr=0.00001 -input=256 -hidden="512" -conversion=1.0 -average="1;2;3 4" -restore="/scratch/jkoo/code-tf/hc/tmp/hc_finetuned/idx-40/backup-mid/hc_epoch_1.ckpt" -prt="full" -k=2 -opt="adam" -epoch=21 -alt1=-1 -alt2=20 -base="res" -mode='infer' -check_dir='/home/jkoo/code-tf/hc/check_test/idx-40/' -seed=1234 > /scratch/jkoo/nohup/hc/hc/hc-s2s-oi-v1-2-idx-40-test-epoch-1 &
+
+# OSP epoch 1 lin hc-res-alt
+// export CUDA_VISIBLE_DEVICES=0 && nohup python ~/code-tf/hc/hc-s2s-oi-v1-2-pr-run-test.py -server="nu" -model="hc" -idx="idx-41" -batch=32 -lr=0.00001 -input=256 -hidden="512" -conversion=1.0 -average="1;2;3 4" -restore="/scratch/jkoo/code-tf/hc/tmp/hc_finetuned/idx-41/backup-mid/hc_epoch_1.ckpt" -prt="full" -k=2 -opt="adam" -epoch=21 -alt1=3 -alt2=6 -base="res" -mode='infer' -check_dir='/home/jkoo/code-tf/hc/check_test/idx-40/' -seed=1234 > /scratch/jkoo/nohup/hc/hc/hc-s2s-oi-v1-2-idx-41-test-epoch-1 &
+
+# OSP epoch 3 lin hc-vgg
+export CUDA_VISIBLE_DEVICES=0 && nohup python ~/code-tf/hc/hc-s2s-oi-v1-2-pr-run-test.py -server="nu" -model="hc" -idx="idx-42" -batch=32 -lr=0.00001 -input=256 -hidden="512" -conversion=1.0 -average="1;2;3 4" -restore="/scratch/jkoo/code-tf/hc/tmp/hc_finetuned/idx-42/backup-mid/hc_epoch_3.ckpt" -prt="full" -k=2 -opt="adam" -epoch=21 -alt1=-1 -alt2=20 -base="vgg" -mode='infer' -check_dir='/home/jkoo/code-tf/hc/check_test/idx-42/' -seed=1234 > ~/nohup/hc/hc/hc-s2s-oi-v1-2-idx-42-test-epoch-3  &
+
+# OSP epoch 3 lin hc-vgg-alt
+export CUDA_VISIBLE_DEVICES=0 && nohup python ~/code-tf/hc/hc-s2s-oi-v1-2-pr-run-test.py -server="nu" -model="hc" -idx="idx-43" -batch=32 -lr=0.00001 -input=256 -hidden="512" -conversion=1.0 -average="1;2;3 4" -restore="/scratch/jkoo/code-tf/hc/tmp/hc_finetuned/idx-43/backup-mid/hc_epoch_4.ckpt" -prt="full" -k=2 -opt="adam" -epoch=21 -alt1=3 -alt2=6 -base="vgg" -mode='infer' -check_dir='/home/jkoo/code-tf/hc/check_test/idx-43/' -seed=1234 > ~/nohup/hc/hc/hc-s2s-oi-v1-2-idx-43-test-epoch-4  &
+
+# OSP epoch 1 pool hc-res 
+// export CUDA_VISIBLE_DEVICES=0 && nohup python ~/code-tf/hc/hc-s2s-oi-v1-2-pr-run-test.py -server="nu" -model="hc" -idx="idx-44" -batch=32 -lr=0.00001 -input=256 -hidden="512" -conversion=3.1 -average="1;2;3 4" -restore="/scratch/jkoo/code-tf/hc/tmp/hc_finetuned/idx-44/backup-mid/hc_epoch_1.ckpt" -prt="full" -k=2 -opt="adam" -epoch=15 -alt1=-1 -alt2=20 -base="res" -mode='infer' -check_dir='/home/jkoo/code-tf/hc/check_test/idx-44/' -seed=1234  > /scratch/jkoo/nohup/hc/hc/hc-s2s-oi-v1-2-idx-44-test-epoch-1 &
+
+# OSP epoch 5 pool hc-res-alt 
+// export CUDA_VISIBLE_DEVICES=0 && nohup python ~/code-tf/hc/hc-s2s-oi-v1-2-pr-run-test.py -server="nu" -model="hc" -idx="idx-45" -batch=32 -lr=0.00001 -input=256 -hidden="512" -conversion=3.1 -average="1;2;3 4" -restore="/scratch/jkoo/code-tf/hc/tmp/hc_finetuned/idx-45/backup-mid/hc_epoch_5.ckpt" -prt="full" -k=2 -opt="adam" -epoch=15 -alt1=3 -alt2=6 -base="res"  -mode='infer' -check_dir='/home/jkoo/code-tf/hc/check_test/idx-45/' -seed=1234  > /scratch/jkoo/nohup/hc/hc/hc-s2s-oi-v1-2-idx-45-test-epoch-5 &
+
+
+
+###########################################################################################################
+##################################################### res
+
+// export CUDA_VISIBLE_DEVICES=2 && nohup python ~/code-tf/hc/hc-s2s-oi-v1-2-pr-test.py -server="nu" -model="resnet-50" -idx="idx-16" -batch=32 -lr=0.0001 -restore="/scratch/jkoo/code-tf/hc/tmp/cnn_finetuned/idx-16/backup-mid/resnet-50_epoch_2.ckpt" -prt="full" -opt="adam" -epoch=21 -base="res" -mode="infer" -check_dir='/home/jkoo/code-tf/hc/check_test/idx-16/' > ~/nohup/hc/cnn/hc-s2s-oi-v1-2-idx-16-test-epoch-2 &
+
+# OSP: epoch 3
+// export CUDA_VISIBLE_DEVICES=0 && nohup python ~/code-tf/hc/hc-s2s-oi-v1-2-pr-run-test.py -server="nu" -model="resnet-50" -idx="idx-25" -batch=32 -lr=0.0001 -restore="/scratch/jkoo/code-tf/hc/tmp/cnn_finetuned/idx-25/backup-mid/resnet-50_epoch_3.ckpt" -prt="full" -opt="adam" -epoch=21 -base="res" -mode="infer" -check_dir='/home/jkoo/code-tf/hc/check_test/idx-25/' -seed=2468 > ~/nohup/hc/cnn/hc-s2s-oi-v1-2-idx-25-test-epoch-3 &
+
+# dd0: epoch 3
+// export CUDA_VISIBLE_DEVICES=3 && nohup python ~/code-tf/hc/hc-s2s-oi-v1-2-pr-run-test.py -server="nu" -model="resnet-50" -idx="idx-31" -batch=32 -lr=0.0001 -restore="/nfs/home/jke513/code-tf/hc/tmp/cnn_finetuned/idx-31/backup-mid/resnet-50_epoch_3.ckpt" -prt="full" -opt="adam" -epoch=21 -base="res" -mode="infer" -check_dir='/nfs/home/jke513/code-tf/hc/check_test/idx-31/' -seed=1357 > ~/nohup/hc/cnn/hc-s2s-oi-v1-2-idx-31-test-epoch-3 &
+
+##################################################### hc-res
+// export CUDA_VISIBLE_DEVICES=1 && nohup python ~/code-tf/hc/hc-s2s-oi-v1-2-pr-test.py -server="nu" -model="hc" -idx="idx-21" -batch=32 -lr=0.00001 -input=2048 -hidden="1024" -conversion=3.1 -average="1;2;3 4" -restore="/scratch/jkoo/code-tf/hc/tmp/hc_finetuned/idx-21/backup-mid/hc_epoch_3.ckpt" -prt="full" -k=2 -opt="adam" -epoch=21 -alt1=20 -alt2=-1 -base="res" -mode='infer' -check_dir='/home/jkoo/code-tf/hc/check_test/idx-21/' > /scratch/jkoo/nohup/hc/hc/hc-s2s-oi-v1-2-idx-21-test-epoch-3  &
+
+# OSP epoch 1 
+// export CUDA_VISIBLE_DEVICES=2 && nohup python ~/code-tf/hc/hc-s2s-oi-v1-2-pr-run-test.py -server="nu" -model="hc" -idx="idx-37" -batch=32 -lr=0.00001 -input=2048 -hidden="1024" -conversion=3.1 -average="1;2;3 4" -restore="/scratch/jkoo/code-tf/hc/tmp/hc_finetuned/idx-37/backup-mid/hc_epoch_1.ckpt" -prt="full" -k=2 -opt="adam" -epoch=21 -alt1=-1 -alt2=20 -base="res" -mode='infer' -check_dir='/home/jkoo/code-tf/hc/check_test/idx-37/' -seed=1234  > /scratch/jkoo/nohup/hc/hc/hc-s2s-oi-v1-2-idx-37-test-epoch-1 &
+
+# osp: epoch 1  
+// export CUDA_VISIBLE_DEVICES=2 && nohup python ~/code-tf/hc/hc-s2s-oi-v1-2-pr-run-test.py -server="nu" -model="hc" -idx="idx-26" -batch=32 -lr=0.00001 -input=2048 -hidden="1024" -conversion=3.1 -average="1;2;3 4" -restore="/scratch/jkoo/code-tf/hc/tmp/hc_finetuned/idx-26/backup-mid/hc_epoch_1.ckpt" -prt="full" -k=2 -opt="adam" -epoch=21 -alt1=-1 -alt2=20 -base="res" -mode='infer' -check_dir='/home/jkoo/code-tf/hc/check_test/idx-26/' -seed=2468  > /scratch/jkoo/nohup/hc/hc/hc-s2s-oi-v1-2-idx-26-test-epoch-1 &
+
+# wcdl0: epoch 1 
+// export CUDA_VISIBLE_DEVICES=0 && nohup python ~/code-tf/hc/hc-s2s-oi-v1-2-pr-run-test.py -server="nu" -model="hc" -idx="idx-32" -batch=32 -lr=0.00001 -input=2048 -hidden="1024" -conversion=3.1 -average="1;2;3 4" -restore="/scratch/jkoo/code-tf/hc/tmp/hc_finetuned/idx-32/backup-mid/hc_epoch_1.ckpt" -prt="full" -k=2 -opt="adam" -epoch=21 -alt1=-1 -alt2=20 -base="res" -mode='infer' -check_dir='/home/jkoo/code-tf/hc/check_test/idx-32/' -seed=1357  > /scratch/jkoo/nohup/hc/hc/hc-s2s-oi-v1-2-idx-32-test-epoch-1 &
+
+##################################################### hc-res-alt
+// export CUDA_VISIBLE_DEVICES=2 && nohup python ~/code-tf/hc/hc-s2s-oi-v1-2-pr-test.py -server="nu" -model="hc" -idx="idx-18" -batch=32 -lr=0.00001 -input=2048 -hidden="1024" -conversion=3.1 -average="1;2;3 4" -restore="/scratch/jkoo/code-tf/hc/tmp/hc_finetuned/idx-18/backup-mid/hc_epoch_5.ckpt" -prt="full" -k=2 -opt="adam" -epoch=21 -alt1=3 -alt2=6 -base="res" -mode='infer' -check_dir='/home/jkoo/code-tf/hc/check_test/idx-18/' > /scratch/jkoo/nohup/hc/hc/hc-s2s-oi-v1-2-idx-18-test-epoch-5 & 
+
+# wcdl0: epoch 5
+// export CUDA_VISIBLE_DEVICES=1 && nohup python ~/code-tf/hc/hc-s2s-oi-v1-2-pr-run-test.py -server="nu" -model="hc" -idx="idx-27" -batch=32 -lr=0.00001 -input=2048 -hidden="1024" -conversion=3.1 -average="1;2;3 4" -restore="/scratch/jkoo/code-tf/hc/tmp/hc_finetuned/idx-27/backup-mid/hc_epoch_5.ckpt" -prt="full" -k=2 -opt="adam" -epoch=21 -alt1=3 -alt2=6 -base="res"  -mode='infer' -check_dir='/home/jkoo/code-tf/hc/check_test/idx-27/'  -seed=2468  > /scratch/jkoo/nohup/hc/hc/hc-s2s-oi-v1-2-idx-27-test-epoch-5 &
+
+# wcdl0: epoch 5 
+// export CUDA_VISIBLE_DEVICES=0 && nohup python ~/code-tf/hc/hc-s2s-oi-v1-2-pr-run-test.py -server="nu" -model="hc" -idx="idx-33" -batch=32 -lr=0.00001 -input=2048 -hidden="1024" -conversion=3.1 -average="1;2;3 4" -restore="/scratch/jkoo/code-tf/hc/tmp/hc_finetuned/idx-33/backup-mid/hc_epoch_5.ckpt" -prt="full" -k=2 -opt="adam" -epoch=21 -alt1=3 -alt2=6 -base="res"  -mode='infer' -check_dir='/home/jkoo/code-tf/hc/check_test/idx-33/'  -seed=1357  > /scratch/jkoo/nohup/hc/hc/hc-s2s-oi-v1-2-idx-33-test-epoch-5 &
+
+###########################################################################################################
+
+##################################################### vgg
+// export CUDA_VISIBLE_DEVICES=1 && nohup python ~/code-tf/hc/hc-s2s-oi-v1-2-pr-test.py -server="nu" -model="vgg-16" -idx="idx-17" -batch=32 -lr=0.0001 -restore="/scratch/jkoo/code-tf/hc/tmp/cnn_finetuned/idx-17/backup-mid/vgg-16_epoch_6.ckpt" -prt="full" -opt="adam" -epoch=21 -base="vgg" -mode="infer" -check_dir='/home/jkoo/code-tf/hc/check_test/idx-17/' > ~/nohup/hc/cnn/hc-s2s-oi-v1-2-idx-17-test-epoch-6 &
+
+# dd0: epoch 5
+// export CUDA_VISIBLE_DEVICES=1 && nohup python ~/code-tf/hc/hc-s2s-oi-v1-2-pr-run-test.py -server="nu" -model="vgg-16" -idx="idx-28" -batch=32 -lr=0.0001 -restore="/nfs/home/jke513/code-tf/hc/tmp/cnn_finetuned/idx-28/backup-mid/vgg-16_epoch_5.ckpt" -prt="full" -opt="adam" -epoch=21 -base="vgg" -mode="infer" -check_dir='/nfs/home/jke513/code-tf/hc/check_test/idx-28/' -seed=2468 > ~/nohup/hc/cnn/hc-s2s-oi-v1-2-idx-28-test-epoch-5 &
+
+# dd0: epoch 10
+// export CUDA_VISIBLE_DEVICES=3 && nohup python ~/code-tf/hc/hc-s2s-oi-v1-2-pr-run-test.py -server="nu" -model="vgg-16" -idx="idx-34" -batch=32 -lr=0.0001 -restore="/nfs/home/jke513/code-tf/hc/tmp/cnn_finetuned/idx-34/backup-mid/vgg-16_epoch_10.ckpt" -prt="full" -opt="adam" -epoch=21 -base="vgg" -mode="infer" -check_dir='/nfs/home/jke513/code-tf/hc/check_test/idx-34/' -seed=1357  > ~/nohup/hc/cnn/hc-s2s-oi-v1-2-idx-34-test-epoch-10 &
+
+##################################################### hc-vgg
+// export CUDA_VISIBLE_DEVICES=2 && nohup python ~/code-tf/hc/hc-s2s-oi-v1-2-pr-test.py -server="nu" -model="hc" -idx="idx-19" -batch=32 -lr=0.00001 -input=2048 -hidden="1024" -conversion=3.1 -average="1;2;3 4" -restore="/scratch/jkoo/code-tf/hc/tmp/hc_finetuned/idx-19/backup-mid/hc_epoch_4.ckpt" -prt="full" -k=2 -opt="adam" -epoch=21 -alt1=5 -alt2=-1 -base="vgg" -mode="infer" -check_dir='/home/jkoo/code-tf/hc/check_test/idx-19/' > /scratch/jkoo/nohup/hc/hc/hc-s2s-oi-val-2-idx-19-test-epoch-4 &
+
+# osp: epoch 2 
+//export CUDA_VISIBLE_DEVICES=0 && nohup python ~/code-tf/hc/hc-s2s-oi-v1-2-pr-run-test.py -server="nu" -model="hc" -idx="idx-38" -batch=32 -lr=0.00001 -input=2048 -hidden="1024" -conversion=3.1 -average="1;2;3 4" -restore="/scratch/jkoo/code-tf/hc/tmp/hc_finetuned/idx-38/backup-mid/hc_epoch_2.ckpt" -prt="full" -k=2 -opt="adam" -epoch=21 -alt1=-1 -alt2=20 -base="vgg"  -mode="infer" -check_dir='/home/jkoo/code-tf/hc/check_test/idx-38/'  -seed=1234  > ~/nohup/hc/hc/hc-s2s-oi-v1-2-idx-38-test-epoch-2  &
+
+# wcdl0: epoch 2 
+// export CUDA_VISIBLE_DEVICES=1 && nohup python ~/code-tf/hc/hc-s2s-oi-v1-2-pr-run-test.py -server="nu" -model="hc" -idx="idx-29" -batch=32 -lr=0.00001 -input=2048 -hidden="1024" -conversion=3.1 -average="1;2;3 4" -restore="/scratch/jkoo/code-tf/hc/tmp/hc_finetuned/idx-29/backup-mid/hc_epoch_2.ckpt" -prt="full" -k=2 -opt="adam" -epoch=21 -alt1=-1 -alt2=20 -base="vgg"  -mode="infer" -check_dir='/home/jkoo/code-tf/hc/check_test/idx-29/'  -seed=2468  > /scratch/jkoo/nohup/hc/hc/hc-s2s-oi-v1-2-idx-29-re-test-epoch-2  &
+
+# osp: epoch 2 
+// export CUDA_VISIBLE_DEVICES=0 && nohup python ~/code-tf/hc/hc-s2s-oi-v1-2-pr-run-test.py -server="nu" -model="hc" -idx="idx-35" -batch=32 -lr=0.00001 -input=2048 -hidden="1024" -conversion=3.1 -average="1;2;3 4" -restore="/scratch/jkoo/code-tf/hc/tmp/hc_finetuned/idx-35/backup-mid/hc_epoch_2.ckpt" -prt="full" -k=2 -opt="adam" -epoch=21 -alt1=-1 -alt2=20 -base="vgg"  -mode="infer" -check_dir='/home/jkoo/code-tf/hc/check_test/idx-35/'  -seed=1357  > /scratch/jkoo/nohup/hc/hc/hc-s2s-oi-v1-2-idx-35-test-epoch-2  &
+
+##################################################### hc-vgg-alt
+// export CUDA_VISIBLE_DEVICES=1 && nohup python ~/code-tf/hc/hc-s2s-oi-v1-2-pr-test.py -server="nu" -model="hc" -idx="idx-20" -batch=32 -lr=0.00001 -input=2048 -hidden="1024" -conversion=3.1 -average="1;2;3 4" -restore="/scratch/jkoo/code-tf/hc/tmp/hc_finetuned/idx-20/backup-mid/hc_epoch_4.ckpt" -prt="full" -k=2 -opt="adam" -epoch=21 -alt1=3 -alt2=6 -base="vgg" -mode='infer' -check_dir='/home/jkoo/code-tf/hc/check_test/idx-20/' > /scratch/jkoo/nohup/hc/hc/hc-s2s-oi-v1-2-idx-20-test-epoch-4 &
+
+# osp: epoch 5
+/        export CUDA_VISIBLE_DEVICES=0 && nohup python ~/code-tf/hc/hc-s2s-oi-v1-2-pr-run-test.py -server="nu" -model="hc" -idx="idx-20" -batch=32 -lr=0.00001 -input=2048 -hidden="1024" -conversion=3.1 -average="1;2;3 4" -restore="/scratch/jkoo/code-tf/hc/tmp/hc_finetuned/idx-20/backup-mid/hc_epoch_5.ckpt" -prt="full" -k=2 -opt="adam" -epoch=21 -alt1=3 -alt2=6 -base="vgg" -mode='infer' -check_dir='/home/jkoo/code-tf/hc/check_test/idx-20/'-seed=1234  > /scratch/jkoo/nohup/hc/hc/hc-s2s-oi-v1-2-idx-20-test-epoch-5 &
+
+# osp: epoch 5 
+// export CUDA_VISIBLE_DEVICES=2 && nohup python ~/code-tf/hc/hc-s2s-oi-v1-2-pr-run-test.py -server="nu" -model="hc" -idx="idx-30" -batch=32 -lr=0.00001 -input=2048 -hidden="1024" -conversion=3.1 -average="1;2;3 4" -restore="/scratch/jkoo/code-tf/hc/tmp/hc_finetuned/idx-30/backup-mid/hc_epoch_5.ckpt" -prt="full" -k=2 -opt="adam" -epoch=21 -alt1=3 -alt2=6 -base="vgg" -mode='infer' -check_dir='/home/jkoo/code-tf/hc/check_test/idx-30/' -seed=2468  > ~/nohup/hc/hc/hc-s2s-oi-v1-2-idx-30-test-epoch-5 &
+
+# wcdl0: epoch 5 
+// export CUDA_VISIBLE_DEVICES=0 && nohup python ~/code-tf/hc/hc-s2s-oi-v1-2-pr-run-test.py -server="nu" -model="hc" -idx="idx-36" -batch=32 -lr=0.00001 -input=2048 -hidden="1024" -conversion=3.1 -average="1;2;3 4" -restore="/scratch/jkoo/code-tf/hc/tmp/hc_finetuned/idx-36/backup-mid/hc_epoch_5.ckpt" -prt="full" -k=2 -opt="adam" -epoch=21 -alt1=3 -alt2=6 -base="vgg" -mode='infer' -check_dir='/home/jkoo/code-tf/hc/check_test/idx-36/' -seed=1357  > /scratch/jkoo/nohup/hc/hc/hc-s2s-oi-v1-2-idx-36-test-epoch-5 &
+
+
+
+
+
+
+
+
+
+
+
+

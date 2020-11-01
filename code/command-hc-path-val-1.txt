@@ -1,0 +1,29 @@
+nohup python /home/jkoo/code-tf/hc/PR-kube-path-bulk-ori-val-te.py val cnn_finetuned/idx-115 4 > /home/jkoo/nohup/hc/hc-inf/idx-115-path-val &
+nohup python /home/jkoo/code-tf/hc/PR-kube-path-bulk-ori-val-te.py val hc_finetuned/idx-116 2 > /home/jkoo/nohup/hc/hc-inf/idx-116-path-val &
+nohup python /home/jkoo/code-tf/hc/PR-kube-path-bulk-ori-val-te.py val hc_finetuned/idx-117 6 > /home/jkoo/nohup/hc/hc-inf/idx-117-path-val &
+nohup python /home/jkoo/code-tf/hc/PR-kube-path-bulk-ori-val-te.py val hc_finetuned/idx-118 1 > /home/jkoo/nohup/hc/hc-inf/idx-118-path-val &
+nohup python /home/jkoo/code-tf/hc/PR-kube-path-bulk-ori-val-te.py val hc_finetuned/idx-119 2 > /home/jkoo/nohup/hc/hc-inf/idx-119-path-val &
+nohup python /home/jkoo/code-tf/hc/PR-kube-path-bulk-ori-val-te.py val hc_finetuned/idx-120 4 > /home/jkoo/nohup/hc/hc-inf/idx-120-path-val &
+nohup python /home/jkoo/code-tf/hc/PR-kube-path-bulk-ori-val-te.py val hc_finetuned/idx-121 6 > /home/jkoo/nohup/hc/hc-inf/idx-121-path-val &
+nohup python /home/jkoo/code-tf/hc/PR-kube-path-bulk-ori-val-te.py val hc_finetuned/idx-122 2 > /home/jkoo/nohup/hc/hc-inf/idx-122-path-val &
+nohup python /home/jkoo/code-tf/hc/PR-kube-path-bulk-ori-val-te.py val hc_finetuned/idx-123 6 > /home/jkoo/nohup/hc/hc-inf/idx-123-path-val &
+
+nohup python /home/jkoo/code-tf/hc/PR-kube-path-bulk-ori-val-te.py val cnn_finetuned/idx-124 5 > /home/jkoo/nohup/hc/hc-inf/idx-124-path-val &
+nohup python /home/jkoo/code-tf/hc/PR-kube-path-bulk-ori-val-te.py val hc_finetuned/idx-125 1 > /home/jkoo/nohup/hc/hc-inf/idx-125-path-val &
+nohup python /home/jkoo/code-tf/hc/PR-kube-path-bulk-ori-val-te.py val hc_finetuned/idx-126 5 > /home/jkoo/nohup/hc/hc-inf/idx-126-path-val &
+nohup python /home/jkoo/code-tf/hc/PR-kube-path-bulk-ori-val-te.py val hc_finetuned/idx-127 1 > /home/jkoo/nohup/hc/hc-inf/idx-127-path-val &
+nohup python /home/jkoo/code-tf/hc/PR-kube-path-bulk-ori-val-te.py val hc_finetuned/idx-128 2 > /home/jkoo/nohup/hc/hc-inf/idx-128-path-val &
+nohup python /home/jkoo/code-tf/hc/PR-kube-path-bulk-ori-val-te.py val hc_finetuned/idx-129 4 > /home/jkoo/nohup/hc/hc-inf/idx-129-path-val &
+nohup python /home/jkoo/code-tf/hc/PR-kube-path-bulk-ori-val-te.py val hc_finetuned/idx-130 6 > /home/jkoo/nohup/hc/hc-inf/idx-130-path-val &
+nohup python /home/jkoo/code-tf/hc/PR-kube-path-bulk-ori-val-te.py val hc_finetuned/idx-131 1 > /home/jkoo/nohup/hc/hc-inf/idx-131-path-val &
+nohup python /home/jkoo/code-tf/hc/PR-kube-path-bulk-ori-val-te.py val hc_finetuned/idx-132 5 > /home/jkoo/nohup/hc/hc-inf/idx-132-path-val &
+
+nohup python /home/jkoo/code-tf/hc/PR-kube-path-bulk-ori-val-te.py val cnn_finetuned/idx-133 3 > /home/jkoo/nohup/hc/hc-inf/idx-133-path-val &
+nohup python /home/jkoo/code-tf/hc/PR-kube-path-bulk-ori-val-te.py val hc_finetuned/idx-134 2 > /home/jkoo/nohup/hc/hc-inf/idx-134-path-val &
+nohup python /home/jkoo/code-tf/hc/PR-kube-path-bulk-ori-val-te.py val hc_finetuned/idx-135 x > /home/jkoo/nohup/hc/hc-inf/idx-135-path-val &
+nohup python /home/jkoo/code-tf/hc/PR-kube-path-bulk-ori-val-te.py val hc_finetuned/idx-136 1 > /home/jkoo/nohup/hc/hc-inf/idx-136-path-val &
+nohup python /home/jkoo/code-tf/hc/PR-kube-path-bulk-ori-val-te.py val hc_finetuned/idx-137 2 > /home/jkoo/nohup/hc/hc-inf/idx-137-path-val &
+nohup python /home/jkoo/code-tf/hc/PR-kube-path-bulk-ori-val-te.py val hc_finetuned/idx-138 x > /home/jkoo/nohup/hc/hc-inf/idx-138-path-val &
+nohup python /home/jkoo/code-tf/hc/PR-kube-path-bulk-ori-val-te.py val hc_finetuned/idx-139 x > /home/jkoo/nohup/hc/hc-inf/idx-139-path-val &
+nohup python /home/jkoo/code-tf/hc/PR-kube-path-bulk-ori-val-te.py val hc_finetuned/idx-140 x > /home/jkoo/nohup/hc/hc-inf/idx-140-path-val &
+nohup python /home/jkoo/code-tf/hc/PR-kube-path-bulk-ori-val-te.py val hc_finetuned/idx-141 x > /home/jkoo/nohup/hc/hc-inf/idx-141-path-val &

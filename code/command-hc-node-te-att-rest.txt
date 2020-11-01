@@ -1,0 +1,4 @@
+nohup python /home/jkoo/code-tf/hc/PR-kube-node-bulk-val-te.py te hc_finetuned/idx-138 4 0.21 > /home/jkoo/nohup/hc/hc-inf/idx-138-node-te &
+nohup python /home/jkoo/code-tf/hc/PR-kube-node-bulk-val-te.py te hc_finetuned/idx-139 7 0.18 > /home/jkoo/nohup/hc/hc-inf/idx-139-node-te &
+nohup python /home/jkoo/code-tf/hc/PR-kube-node-bulk-val-te.py te hc_finetuned/idx-140 2 0.23 > /home/jkoo/nohup/hc/hc-inf/idx-140-node-te &
+nohup python /home/jkoo/code-tf/hc/PR-kube-node-bulk-val-te.py te hc_finetuned/idx-141 6 0.24 > /home/jkoo/nohup/hc/hc-inf/idx-141-node-te &
