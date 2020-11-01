@@ -6,7 +6,7 @@ Author: Jaehoon Koo
 ---------------------------------------------------------------
 This directory contains sample scripts of DHNN paper (https://arxiv.org/abs/1809.09574v3) written in Python3 with Tensorflow.
 
-Scripts are written based on TF-Slim library (https://github.com/google-research/tf-slim), SENet https://github.com/kobiso/SENet-tensorflow-slim, CBAM https://github.com/kobiso/CBAM-keras, https://github.com/aymericdamien/TensorFlow-Examples/blob/master/examples/3_NeuralNetworks/bidirectional_rnn.py and .
+Scripts are written based on TF-Slim library (https://github.com/google-research/tf-slim), SENet (https://github.com/kobiso/SENet-tensorflow-slim), CBAM (https://github.com/kobiso/CBAM-keras), and bidirectional RNN (https://github.com/aymericdamien/TensorFlow-Examples/blob/master/examples/3_NeuralNetworks/bidirectional_rnn.py.
 
 ---------------------------------------------------------------
 Dataset:
