@@ -16,13 +16,13 @@ https://northwestern.app.box.com/s/i23bm7eee5irjt164sn1zqzxvyyyrc37/folder/70446
 ---------------------------------------------------------------
 Files:
 
-code/hc-s2s-oi-v1-2-pr-run-val-se.py: General tree model with SE net
+[code/hc-s2s-oi-v1-2-pr-run-val-se.py](https://github.com/jke513/h_classification/blob/master/code/hc-s2s-oi-v1-2-pr-run-val-se.py): General tree model with SE net
 
-code/hc-s2s-oi-v1-2-pr-run-val-att.py: General tree model with CBAM net
+[code/hc-s2s-oi-v1-2-pr-run-val-att.py](https://github.com/jke513/h_classification/blob/master/code/hc-s2s-oi-v1-2-pr-run-val-att.py): General tree model with CBAM net
 
-code/PR-node-bulk-val-te.py: Compute node accuracy of general tree model
+[code/PR-node-bulk-val-te.py](https://github.com/jke513/h_classification/blob/master/code/PR-node-bulk-val-te.py): Compute node accuracy of general tree model
 
-code/PR-path-bulk-ori-val-te.py: Compute path accuracy of general tree model
+[code/PR-path-bulk-ori-val-te.py](https://github.com/jke513/h_classification/blob/master/code/PR-path-bulk-ori-val-te.py): Compute path accuracy of general tree model
 
 ---------------------------------------------------------------
 To run:
