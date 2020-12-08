@@ -31,7 +31,7 @@ from tensorflow.contrib.rnn import LSTMCell, LSTMStateTuple
 # Define options
 parser = argparse.ArgumentParser()
 parser.add_argument("-server","-server", dest='server',type=str,
-                    help="Select which server", default="allstate")
+                    help="Select which server", default="ne")
 parser.add_argument("-model","-model_name", dest='model',type=str,
                     help="Select model option", default="resnet-50")
 parser.add_argument("-base","-cnn_base", dest='base',type=str,
@@ -724,7 +724,7 @@ def encode_s2s(pre_path,batch_y,batch_size,n_steps,n_classes,node_added):
             for vec_temp in label_vec_temp:
                 label_vec_node[i,int(vec_temp)] = 1 
     # hc label vectore
-    path_target = np.zeros((batch_size,n_steps,n_classes+node_added+2), dtype=int) ## oi ilsvrc65 s2s    
+    path_target = np.zeros((batch_size,n_steps,n_classes+node_added+2), dtype=int) ## oi s2s    
     path_target[:,n_steps-1,-1] = 1  # n_step = 4 / 012 are in tree, 3 is END
     level_1 = range(0,2)
     level_2 = range(2,6)
@@ -753,31 +753,28 @@ def encode_s2s(pre_path,batch_y,batch_size,n_steps,n_classes,node_added):
 
 ## hc-s2s encoding 
 def encode_s2s_old(pre_path,batch_y,batch_size,n_steps,n_classes,node_added):
-    label_target = np.zeros((batch_size,n_classes+node_added), dtype=int) ## oi ilsvrc65 s2s
-    ## label_target = np.zeros((batch_size,n_classes), dtype=int)   ## allstate s2s
-    path_target = np.zeros((batch_size,n_steps,n_classes+node_added+2), dtype=int) ## oi ilsvrc65 s2s    
+    label_target = np.zeros((batch_size,n_classes+node_added), dtype=int) ## oi 
+    path_target = np.zeros((batch_size,n_steps,n_classes+node_added+2), dtype=int) ## oi   
     path_target[:,n_steps-1,-1] = 1  # n_step = 4 / 012 are in tree, 3 is END
     for i in range(batch_size):
-        label = np.argmax(batch_y[i])  ## label = {0,...,17} allstate and ilsvrc65
-        label_target[i,pre_path[str(label)][3]-1] = 1  ## ilsvrc65 s2s
-        ## label_target[i,pre_path[str(label)][3]] = 1  ## allstate s2s
+        label = np.argmax(batch_y[i]) 
+        label_target[i,pre_path[str(label)][3]-1] = 1 
+        ## label_target[i,pre_path[str(label)][3]] = 1 
         for j in range(n_steps-1):
             path_target[i,j,pre_path[str(label)][j]] = 1
     return label_target, path_target  ## label_target = for cnn, path_target = for s2s
 
 ## CNN encoding
 def encode_s2s_(pre_path,batch_y,batch_size,n_steps,n_classes,node_added):
-    label_target = np.zeros((batch_size,n_classes+node_added), dtype=int) ## ilsvrc65 s2s
-    ## label_target = np.zeros((batch_size,n_classes), dtype=int)   ## allstate s2s
+    label_target = np.zeros((batch_size,n_classes+node_added), dtype=int) 
+    ## label_target = np.zeros((batch_size,n_classes), dtype=int)   
     path_target = np.zeros((batch_size,n_steps,n_classes+node_added+2), dtype=int)
     path_target[:,n_steps-1,-1] = 1  # n_step = 4 / 012 are in tree, 3 is END
     for i in range(batch_size):
         label = np.argmax(batch_y[i]) + 7
         label_target[i,pre_path[str(label)][3]-1] = 1
-        label = np.argmax(batch_y[i]) + 7 ## ilsvrc65
-        label_target[i,pre_path[str(label)][3]-1] = 1  ## ilsvrc65
-        ## label = np.argmax(batch_y[i]) ## allstate
-        ## label_target[i,pre_path[str(label)][3]] = 1  ## allstate
+        label = np.argmax(batch_y[i]) + 7
+        label_target[i,pre_path[str(label)][3]-1] = 1  
         for j in range(n_steps-1):
             path_target[i,j,pre_path[str(label)][j]] = 1
     return label_target, path_target  ## label_target = for cnn, path_target = for s2s
@@ -1007,7 +1004,7 @@ def save_pred_resnet(infer_dir,pred_soft,batch_y_val,batch_y_val_node,batch_idx)
     return
 
 def save_pred_hc(pred_seq,n_classes,node_added,batch_size):
-    # define index at each label ############################### for ilsvrc65 s2s
+    # define index at each label ############################### s2s
     level_1 = range(0,2)
     level_2 = range(2,6)
     level_3 = range(6,30)
@@ -1100,22 +1097,6 @@ if args.model == "hc":
     batch_Y     = np.load(label_dir)     ##### s2s
     batch_Y_val = np.load(label_dir_val) ##### s2s
     batch_Y_te  = np.load(label_dir_te)  ##### s2s  
-    #### ilsvrc65
-    #NN = 57 + 7  ## s2s
-    #batch_Y = np.eye(NN)[np.load(label_dir)] # n_classes+node_added)[np.load(label_dir)]             ## s2s
-    #if args.base == "vgg":
-    #   batch_Y = np.r_[batch_Y,batch_Y]
-    #batch_Y_val = np.eye(NN)[np.load(label_dir_val)] # n_classes+node_added)[np.load(label_dir_val)] ## s2s
-    #batch_Y_te = np.eye(NN)[np.load(label_dir_te)] # n_classes+node_added)[np.load(label_dir_val)]   ## s2s
-    #### cifar100
-    #batch_Y = np.eye(n_classes+node_added)[tr_y[:,0]+node_added]
-    #batch_Y_val = np.eye(n_classes+node_added)[val_y[:,0]+node_added]
-    #batch_Y_te = np.eye(n_classes+node_added)[te_y[:,0]+node_added]
-    #### allstate
-    #NN = 18  ## s2s
-    #batch_Y = np.eye(NN)[np.load(label_dir)]
-    #batch_Y_val = np.eye(NN)[np.load(label_dir_val)]
-    #batch_Y_te = np.eye(NN)[np.load(label_dir_te)]
     epoch = init_epoch
     tr_now = "RNN"
     while (epoch < n_epoch):
