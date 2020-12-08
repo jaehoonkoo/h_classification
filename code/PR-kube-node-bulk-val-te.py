@@ -8,8 +8,8 @@ home_dir = '/home/jkoo/code-tf/hc/tmp/'
 mod = str(sys.argv[1])
 
 if mod == 'val':
- model_dir  = str(sys.argv[2]) ###############################################
- Best_epoch = int(sys.argv[3]) ###############################################
+ model_dir  = str(sys.argv[2]) 
+ Best_epoch = int(sys.argv[3]) 
 
  Start = -1
  End   = Best_epoch
@@ -26,8 +26,6 @@ if mod == 'val':
         recall.append(recall_temp)
         f1.append(f1_temp)
     F1 = np.array(f1)    
-    #print (idx_dir)
-    #print ('Best F1:', np.max(F1), 'with threshold', np.argmax(F1)*scale)
     print (np.max(F1),np.float32(np.argmax(F1)*scale))
 
  for ep in range(Start,End):
@@ -48,9 +46,9 @@ if mod == 'val':
     
 else:
     
- model_dir  = str(sys.argv[2]) ###############################################
- Best_epoch = int(sys.argv[3]) ###############################################   
- Best_thr   = np.float32(sys.argv[4]) ############################################### 
+ model_dir  = str(sys.argv[2])
+ Best_epoch = int(sys.argv[3]) 
+ Best_thr   = np.float32(sys.argv[4])  
     
  Start  = Best_epoch
  End    = Start+1
@@ -71,8 +69,6 @@ else:
         f1.append(f1_temp)
         
     F1 = np.array(f1)    
-    #print (idx_dir)
-    #print ('Best F1:', np.max(F1), 'with threshold', np.argmax(F1)*scale)
     print (np.max(F1),np.float32(np.argmax(F1)*scale))
 
  for ep in range(Start,End):
