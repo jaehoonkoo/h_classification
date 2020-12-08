@@ -2,7 +2,7 @@
 Combined Convolutional and Recurrent Neural Networks for Hierarchical Classification of Images
 
 ---------------------------------------------------------------
-Author: Jaehoon Koo
+Author: [Jaehoon Koo](https://www.linkedin.com/in/jaehoon-koo-bb384aa1/)
 ---------------------------------------------------------------
 This directory contains sample scripts of DHNN paper (https://arxiv.org/abs/1809.09574v3) written in Python3 with Tensorflow.
 
