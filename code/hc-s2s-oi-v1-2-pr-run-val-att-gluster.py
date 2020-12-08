@@ -5,29 +5,6 @@ ref 2: slim resnet
 https://github.com/tensorflow/models/tree/master/slim
 https://github.com/tensorflow/models/blob/master/slim/nets/resnet_v1.py
 
-# server: allstate, nu
-# mode1: vgg-16, resnet-50, hc-rnn-res-alt, hc-rnn-vgg-alt, hc-rsrnn-res-alt, hc-rsrnn-vgg-alt
-# preprocessing: res & vgg
-# things to change:
-# ## server: celje, lj, dd0: folder names, loading models.
-# ## data: cifar10, ilsvrc65: define weights, tree, label files, beam search
-
-# updates
-# oi-v1-0 01042019
-## open-image added
-
-# old updates
-# Replace RNN to seq2seq
-# 1120: train on slim-preprocessing
-# 11202017 transform converted cnn features for seq2seq
-# 1121: clean script
-# 1201: implement on imagenet without crash
-# v1-0 04082018
-# v2-0 04202018
-## 1) allstate part updated
-## 2) vgg related options
-## 3) hc1 to hc
-## 4) Resnet_finetuned to cnn_finetuned
 '''
 
 from __future__ import print_function
@@ -40,16 +17,11 @@ from tensorflow.contrib import rnn
 import random as rn
 # Import slim
 import tensorflow.contrib.slim as slim
-#from tensorflow.contrib.slim.nets import resnet_v1
-#from tensorflow.contrib.slim.nets import vgg
-#from tensorflow.contrib.rnn import LSTMCell, LSTMStateTuple
 
 # SE nets
-#slim_path = "/home/jkoo/code-tf/slim/models/research/slim/"
 slim_path = "/home/jkoo/code-tf/CBAM-tensorflow-slim/"
 sys.path.append(slim_path)
 
-#import tensorflow.contrib.slim as slim
 from nets import resnet_v1
 from nets import vgg
 import tensorflow.contrib.slim as slim
@@ -138,16 +110,9 @@ else:
 
 # Load check point
 if args.server == "nu":
-   #import hickle as hkl
-   #home_dir = "/home/lab.analytics.northwestern.edu/jkoo/" ## deepdish
-   home_dir = "/home/jkoo/"                                 ## lj and celje
-   #data_dir = "/home/public/"                              ## deepdish
-   #data_dir = "/scratch/jkoo/data/open-images/"            ## lj
-   #save_dir = "/scratch/jkoo/"                             ## lj
-   #data_dir = "/mnt/jkoo/"                                 ## celje
-   #save_dir = "/mnt/jkoo/"                                 ## celje
-   data_dir = "/home/jkoo/"             ## osp/wcdl0
-   save_dir = "/home/jkoo/"                              ## osp/wcdl0
+   home_dir = "/home/jkoo/"            
+   data_dir = "/home/jkoo/"            
+   save_dir = "/home/jkoo/"            
    checkpoints_dir = home_dir + "code-tf/weights/"
    if args.model == "hc":
       train_log_dir = save_dir + "code-tf/hc/tmp/hc_finetuned/" + args.idx + "/"
@@ -162,8 +127,6 @@ if args.server == "nu":
       label_dir_val = data_dir + "arrays/labels/val_list_label_path.npy"
       input_dir_te  = input_dir_val
       label_dir_te  = label_dir_val         
-      #input_dir_te = data_dir + "arrays/test_npy_b256_slim/*.npy"
-      #label_dir_te = data_dir + "arrays/labels/te_list_label_path.npy"
    else: # vgg-16
       input_dir = data_dir + "arrays/tr_npy_b256_slim/*.npy"
       label_dir = data_dir + "arrays/labels/tr_list_label_path.npy"
@@ -171,8 +134,6 @@ if args.server == "nu":
       label_dir_val = data_dir + "arrays/labels/val_list_label_path.npy"
       input_dir_te  = input_dir_val
       label_dir_te  = label_dir_val         
-      #input_dir_te = data_dir + "arrays/test_npy_b256_slim/*.npy"
-      #label_dir_te = data_dir + "arrays/labels/te_list_label_path.npy"
 else:
    home_dir = "/data/jkooa/"
    data_dir = "/data/jkooa/"
@@ -251,46 +212,38 @@ n_steps = len(avg_option)+1           # timesteps
 
 # how many parent nodes
 if args.server == "nu":
-   node_added = 0                     # oi s2s    
-   #node_added = 7                     # ilsvrc65 s2s
+   node_added = 0 
 else:
-   node_added = 2                     # allstate s2s
-   # node_added = 10                  # allstate rnn
+   node_added = 2  
 # how many leaf nodes
 if args.server == "nu":
-   n_classes = 30                     ###### oi s2s    
-   #n_classes = 33                    ###### ilsvrc65 s2s
-   #n_classes = 57                    ###### ilsvrc65
-   #n_classes = 1000                  # ilsvrc1k
-   resnet_label_scale = 0             ###### oi s2s
-   #resnet_label_scale = 7             ###### ilsvrc65
+   n_classes = 30                  
+   resnet_label_scale = 0  
 else:
-   n_classes = 13                     ###### allstate s2s
-   #n_classes = 18                     ###### allstate rnn
-
+   n_classes = 13  
 if args.base == "res":
-   mean_r = 123.68  # ilsvrc1k-123.68  | cifar100-129.30417
-   mean_g = 116.779 # ilsvrc1k-116.779 | cifar100-124.06996
-   mean_b = 103.935 # ilsvrc1k-103.935 | cifar100-112.43405
+   mean_r = 123.68 
+   mean_g = 116.779
+   mean_b = 103.935 
 else:
-   mean_r = 123.68 # ilsvrc1k-123.68  | cifar100-129.30417
-   mean_g = 116.779 # ilsvrc1k-116.779 | cifar100-124.06996
-   mean_b = 103.935 # ilsvrc1k-103.935 | cifar100-112.43405
-std_r = 1 # | cifar100-68.14695
-std_g = 1 # | cifar100-65.37863
-std_b = 1 # | cifar100-70.40022
+   mean_r = 123.68 
+   mean_g = 116.779 
+   mean_b = 103.935 
+std_r = 1 
+std_g = 1 
+std_b = 1 
 
 # tf Graph input
 x = tf.placeholder("float", [None, n_height, n_width, n_channels])
 if args.server == 'nu':
-   y      = tf.placeholder("float", [None, n_classes+node_added]) ## oi ilsvrc65 s2s
-   y_path = tf.placeholder("float", [None, n_classes+node_added]) ## oi s2s
+   y      = tf.placeholder("float", [None, n_classes+node_added]) 
+   y_path = tf.placeholder("float", [None, n_classes+node_added]) 
 else:
    if model_name == "hc":
-      y = tf.placeholder("float", [None, n_classes+node_added]) ## allstate s2s
-   else: ## allstate cnn-s2s
-      y = tf.placeholder("float", [None, n_classes]) ## allstate s2s
-y_encoded = tf.placeholder("float", [None, n_steps, n_classes+node_added+2]) ## s2s: +2 is added.
+      y = tf.placeholder("float", [None, n_classes+node_added]) 
+   else: 
+      y = tf.placeholder("float", [None, n_classes]) 
+y_encoded = tf.placeholder("float", [None, n_steps, n_classes+node_added+2]) 
 
 if model_name == "hc":
  if args.base == "res":
@@ -321,20 +274,9 @@ if model_name == "hc":
 
  with tf.name_scope('HC_CONV'):
   weights = {
-    ## this is for output from lstm
-    # Hidden layer weights => 2*n_hidden because of forward + backward cells
-    #'out0': tf.Variable(tf.random_normal([2*n_hidden[-1], n_classes+node_added]) * tf.sqrt(2.0/(2*n_hidden[-1]))),
-    #'out1': tf.Variable(tf.random_normal([2*n_hidden[-1], n_classes+node_added]) * tf.sqrt(2.0/(2*n_hidden[-1]))),
-    #'out2': tf.Variable(tf.random_normal([2*n_hidden[-1], n_classes+node_added]) * tf.sqrt(2.0/(2*n_hidden[-1]))),
-    # 'out3': tf.Variable(tf.random_normal([2*n_hidden[-1], n_classes+node_added],mean=0.0))
     'W' : tf.Variable(tf.random_uniform([2*n_hidden[-1], n_classes+node_added+2], -1, 1), dtype=tf.float32) ## s2s
   }
   biases = {
-    ## this is for output from lstm
-    #'out0': tf.Variable(tf.zeros([n_classes+node_added])),
-    #'out1': tf.Variable(tf.zeros([n_classes+node_added])),
-    #'out2': tf.Variable(tf.zeros([n_classes+node_added])),
-    # 'out3': tf.Variable(tf.random_normal([n_classes+node_added],mean=0.0))
     'b' : tf.Variable(tf.zeros([n_classes+node_added+2]), dtype=tf.float32)
   }
   if con_option == 1:
@@ -383,8 +325,6 @@ def avgpool2d(x, k=2):
 def rconv2d(x, W, b, strides=1):
     # Conv2D wrapper, with bias and relu activation
     x = tf.nn.conv2d(x, W, strides=[1, strides, strides, 1], padding='VALID')
-    #x = tf.nn.bias_add(x, b)
-    #return tf.nn.relu(x)
     return x
 
 def BiRNN(x, weights, biases, model_name, rnn_dim, con_option, avg_option, batch_size, n_classes, node_added, rnn_n_layer, cnn_base, cnn_attention):
@@ -719,11 +659,9 @@ pre_path = {
 def preprocessing(batch_x_name, cnn_base, server):
     if cnn_base == "res" or model_name == "resnet-50":
        if server == 'nu':
-          #batch_x = hkl.load(batch_x_name) ## ilsvrc65
           batch_x = np.load(batch_x_name)  ## oi 
-       else: ## allstate
+       else: 
           batch_x = np.load(batch_x_name)
-       # batch_x = batch_x.transpose((3,1,2,0)).astype(np.float32)
     else: ## cnn_base == "vgg"
        batch_x = np.load(batch_x_name)
     batch_x[:,:,:,0] -= mean_r
@@ -813,7 +751,7 @@ def encode_s2s(pre_path,batch_y,batch_size,n_steps,n_classes,node_added):
                 path_target[i,2,l+1] = 1
     return batch_y, label_vec_node, path_target  ## batch_y=path, label_vec_node=node, path_target=node only for hc
 
-## hc-s2s encoding #### ilsvrc65 and allstate
+## hc-s2s encoding 
 def encode_s2s_old(pre_path,batch_y,batch_size,n_steps,n_classes,node_added):
     label_target = np.zeros((batch_size,n_classes+node_added), dtype=int) ## oi ilsvrc65 s2s
     ## label_target = np.zeros((batch_size,n_classes), dtype=int)   ## allstate s2s
@@ -994,7 +932,7 @@ elif args.model == "hc": # ce
 '27'	:	[	1,	4,	27	],
 '28'	:	[	1,	5,	28	],
 '29'	:	[	1,	5,	29	]}
-       # define index at each label ############################### for ilsvrc65 s2s
+       # define index at each label ##########
        level_1 = range(0,2)
        level_2 = range(2,6)
        level_3 = range(6,30)
@@ -1002,7 +940,7 @@ elif args.model == "hc": # ce
        level_2_ = range(3,7)
        level_3_ = range(7,31)
        pred_n = n_classes+node_added  ## 30 + 0
-       # create joint prob at each level             # idx 42 ~ 46 = depth 3's END
+       # create joint prob at each level             
        pred_node = np.zeros((pred_n,), dtype=np.float32) 
        pred_node[level_1] = pred_seq[0][sample,level_1_]
        pred_node[level_2] = pred_seq[1][sample,level_2_]    
@@ -1231,14 +1169,7 @@ if args.model == "hc":
                           .format(acc_p*100,0*100,0*100,node_acc*100,loss))
                ## save pred_seq
                save_pred_seq(infer_dir,seq_soft,batch_y_path_te,batch_y_te,batch_idx)
-           #save_prediction(infer_dir,inference,epoch-1)
            print("Inference is done!")
-           #create_checks(infer_dir) 
-           #sys.exit()
-
-        # only for inference
-        #if args.mode == "infer":
-        #   infer_test()
 
 ########################################################################################################################
         # Alternatin: Train and validation
@@ -1300,48 +1231,10 @@ if args.model == "hc":
                 repeat+=1
         print(datetime.now())
         infer_val()
-        # validation
-        #for batch_idx in range(len(val_filenames)):
-        #    batch_x_val = preprocessing(val_filenames[batch_idx], args.base, args.server)
-        #    batch_y_val_ = batch_Y_val[batch_idx*len(batch_x_val):(batch_idx+1)*len(batch_x_val)]
-        #    batch_y_path_val, batch_y_val, batch_y_en_val = encode_s2s(pre_path,batch_y_val_,len(batch_x_val),n_steps,n_classes,node_added)
-        #    repeat = 0
-        #    print("....Validation...epoch {} -- batch: {} / {},".format(epoch,batch_idx,len(val_filenames)-1))
-        #    for step in range(0,int(len(batch_x_val)/batch_size)):
-        #        batch_x_temp_val = batch_x_val[(step*batch_size):(step+1)*batch_size]
-        #        batch_y_temp_val = batch_y_en_val[(step*batch_size):(step+1)*batch_size]
-        #        batch_y_node_temp_val = batch_y_val[(step*batch_size):(step+1)*batch_size]
-        #        batch_y_path_temp_val = batch_y_path_val[(step*batch_size):(step+1)*batch_size]
-        #        # accuracy at each layer out of n_classes + node_added
-        #        acc = []
-        #        for t in range(n_steps):
-        #            acc.append(sess.run(accuracys[t], feed_dict={x: batch_x_temp_val, y_encoded: batch_y_temp_val}))
-        #        # accuracy of 18 paths
-        #        loss, pred_s = sess.run([cost, pred_seq_soft], feed_dict={x: batch_x_temp_val, y_encoded: batch_y_temp_val})
-        #        p_count, c_count, n_count, c_count_node = 0,0,0,0 
-        #        for sample in range(batch_size):
-        #            p_count_temp, c_count_temp, n_count_temp, c_count_node_temp = beam(sample,beam_k,pred_s,batch_y_path_temp_val,batch_y_node_temp_val,n_classes,node_added)
-        #            p_count += p_count_temp
-        #            c_count += c_count_temp
-        #            n_count += n_count_temp
-        #            c_count_node += c_count_node_temp                            
-        #        # calculate path and node accuracy 
-        #        acc_p = float(c_count/p_count) 
-        #        node_acc = float(c_count_node/n_count)                   
-        #        pred_s = None
-        #        if args.mode == "infer-tr":
-        #           save_prediction(train_log_dir,np.argmax(final_label,1),np.argmax(batch_y_path_temp_val,1),epoch,step)
-        #        print("Validation ....Beam: {:06.2f}% Acc1: {:06.2f}% Acc2: {:06.2f}% Acc3: {:06.2f}% Loss: {:08.5f}"
-        #               .format(acc_p*100,0*100,0*100,node_acc*100,loss))
-        # Save the variables to disk.
         out_file = os.path.join(train_log_dir,model_name+"_epoch_"+str(epoch)+".ckpt")
         save_path = saver.save(sess, out_file)
         print("Model saved in file: %s" % save_path)
         epoch+=1
-
-        ## inference on test
-        #if epoch == n_epoch:
-        #   infer_test()
 
 ##########################################################################################################
 ##### resnet-50 or vgg-16
@@ -1400,21 +1293,6 @@ else:
     batch_Y     = np.load(label_dir)     ##### s2s
     batch_Y_val = np.load(label_dir_val) ##### s2s
     batch_Y_te  = np.load(label_dir_te)  ##### s2s                            
-    #### ilsvrc65
-    #batch_Y = np.eye(57+node_added)[np.load(label_dir)-resnet_label_scale]          ##### s2s
-    #if args.model == "vgg-16":
-    #   batch_Y = np.r_[batch_Y,batch_Y]
-    #batch_Y_val = np.eye(57+node_added)[np.load(label_dir_val)-resnet_label_scale]  ##### s2s
-    #batch_Y_te = np.eye(57+node_added)[np.load(label_dir_te)-resnet_label_scale]    ##### s2s
-    #### cifar100
-    #batch_Y = np.eye(n_classes)[tr_y[:,0]]
-    #batch_Y_val = np.eye(n_classes)[val_y[:,0]]
-    #batch_Y_te = np.eye(n_classes)[te_y[:,0]]
-    ## Allstate
-    #NN = 18  ## s2s
-    #batch_Y = np.eye(NN)[np.load(label_dir)]
-    #batch_Y_val = np.eye(NN)[np.load(label_dir_val)]
-    #batch_Y_te = np.eye(NN)[np.load(label_dir_te)]
     epoch = init_epoch
     while (epoch < n_epoch):
         print(datetime.now())
@@ -1458,12 +1336,6 @@ else:
                ## save pred_seq
                save_pred_resnet(infer_dir,pred_soft,batch_y_path_te,batch_y_te,batch_idx)
            print("Inference is done!")
-           #create_checks(infer_dir)         
-           #sys.exit()
-
-        # only for inference
-        #if args.mode == "infer":
-        #   infer_test_()
 
 ###########################################################################################
 
@@ -1495,35 +1367,7 @@ else:
         # validation
         print(datetime.now())
         infer_val_()
-        #for batch_idx in range(len(val_filenames)):
-        #    batch_x_val = preprocessing(val_filenames[batch_idx], args.base, args.server)
-        #    batch_y_val_ = batch_Y_val[batch_idx*len(batch_x_val):(batch_idx+1)*len(batch_x_val)]                               ## s2s
-        #    batch_y_path_val, batch_y_val, batch_y_target_val = encode_s2s(pre_path,batch_y_val_,len(batch_x_val),n_steps,n_classes,node_added)   ## s2s
-        #    batch_y_target_val = None                                                                                           ## s2s
-        #    repeat = 0
-        #    print("....Validation...epoch {} -- batch: {} / {},".format(epoch,batch_idx,len(val_filenames)-1))
-        #    for step in range(0,int(len(batch_x_val)/batch_size)):
-        #        batch_x_temp_val = batch_x_val[(step*batch_size):(step+1)*batch_size]
-        #        batch_y_temp_val = batch_y_val[(step*batch_size):(step+1)*batch_size]
-        #        batch_y_path_temp_val = batch_y_path_val[(step*batch_size):(step+1)*batch_size]
-        #        loss, acc, pred_s = sess.run([cost, accuracy, pred_cnn], feed_dict={x: batch_x_temp_val, y: batch_y_temp_val})
-        #        p_count, c_count = 0, 0
-        #        for sample in range(batch_size):
-        #            p_count_temp, c_count_temp = beam_cnn(sample,pred_s,batch_y_path_temp_val,batch_y_temp_val,n_classes)
-        #            p_count += p_count_temp
-        #            c_count += c_count_temp
-        #        acc_p = float(c_count/p_count)
-        #        print("Validation ....Beam: {:06.2f}% Acc1: {:06.2f}% Acc2: {:06.2f}% Acc3: {:06.2f}% Loss: {:08.5f}"
-        #               .format(acc_p*100,0*100,0*100,acc*100,loss))
-        # Save the variables to disk.
         out_file = os.path.join(train_log_dir,model_name+"_epoch_"+str(epoch)+".ckpt")
         save_path = saver.save(sess, out_file)
         print("Model saved in file: %s" % save_path)
         epoch+=1
-
-        ## inference on test for cifar100
-        #if epoch == epoch: #n_epoch:
-        #   infer_test_()
-
-
-
