@@ -36,8 +36,6 @@ tree = {
 def encoding_prd_path(prd, threshold):
     
     n_cls = 30
-    ## create every possible paths from nodes 
-    # actual node is same as actual prd 
     
     prd_path = np.zeros((len(prd),n_cls))
     ## turn on 
@@ -64,8 +62,8 @@ home_dir = '/home/jkoo/code-tf/hc/tmp/'
 mod = str(sys.argv[1])
 
 if mod == 'val':
- model_dir  = str(sys.argv[2]) ###############################################
- Best_epoch = int(sys.argv[3]) ###############################################
+ model_dir  = str(sys.argv[2]) 
+ Best_epoch = int(sys.argv[3]) 
 
  Start = Best_epoch - 1
  End   = Start + 1
@@ -107,17 +105,12 @@ if mod == 'val':
     print (act.shape,prd.shape)    
     fscore(act,prd)
 
-#import glob, os, sys
-#import numpy as np
-#from sklearn.metrics import roc_auc_score
-#from sklearn.metrics import precision_recall_fscore_support
-
 else:
 ###################################################### test #######################################################
 
- model_dir  = str(sys.argv[2]) ###############################################
- Best_epoch = int(sys.argv[3]) ###############################################   
- Best_thr   = np.float32(sys.argv[4]) ###############################################     
+ model_dir  = str(sys.argv[2]) 
+ Best_epoch = int(sys.argv[3])    
+ Best_thr   = np.float32(sys.argv[4])   
  Start  = Best_epoch
  End    = Start+1
  THRESH = np.float32(Best_thr)
