@@ -30,7 +30,7 @@ from tensorflow.contrib.rnn import LSTMCell, LSTMStateTuple
 # Define options
 parser = argparse.ArgumentParser()
 parser.add_argument("-server","-server", dest='server',type=str,
-                    help="Select which server", default="allstate")
+                    help="Select which server", default="nu")
 parser.add_argument("-model","-model_name", dest='model',type=str,
                     help="Select model option", default="resnet-50")
 parser.add_argument("-base","-cnn_base", dest='base',type=str,
@@ -233,13 +233,13 @@ std_b = 1
 # tf Graph input
 x = tf.placeholder("float", [None, n_height, n_width, n_channels])
 if args.server == 'nu':
-   y      = tf.placeholder("float", [None, n_classes+node_added]) ## oi ilsvrc65 s2s
+   y      = tf.placeholder("float", [None, n_classes+node_added]) ## oi s2s
    y_path = tf.placeholder("float", [None, n_classes+node_added]) ## oi s2s
 else:
    if model_name == "hc":
-      y = tf.placeholder("float", [None, n_classes+node_added]) ## allstate s2s
-   else: ## allstate cnn-s2s
-      y = tf.placeholder("float", [None, n_classes]) ## allstate s2s
+      y = tf.placeholder("float", [None, n_classes+node_added]) 
+   else: 
+      y = tf.placeholder("float", [None, n_classes]) 
 y_encoded = tf.placeholder("float", [None, n_steps, n_classes+node_added+2]) ## s2s: +2 is added.
 
 if model_name == "hc":
@@ -649,9 +649,8 @@ pre_path = {
 def preprocessing(batch_x_name, cnn_base, server):
     if cnn_base == "res" or model_name == "resnet-50":
        if server == 'nu':
-          #batch_x = hkl.load(batch_x_name) ## ilsvrc65
           batch_x = np.load(batch_x_name)  ## oi 
-       else: ## allstate
+       else: 
           batch_x = np.load(batch_x_name)
        # batch_x = batch_x.transpose((3,1,2,0)).astype(np.float32)
     else: ## cnn_base == "vgg"
@@ -716,7 +715,7 @@ def encode_s2s(pre_path,batch_y,batch_size,n_steps,n_classes,node_added):
             for vec_temp in label_vec_temp:
                 label_vec_node[i,int(vec_temp)] = 1 
     # hc label vectore
-    path_target = np.zeros((batch_size,n_steps,n_classes+node_added+2), dtype=int) ## oi ilsvrc65 s2s    
+    path_target = np.zeros((batch_size,n_steps,n_classes+node_added+2), dtype=int) ## oi s2s    
     path_target[:,n_steps-1,-1] = 1  # n_step = 4 / 012 are in tree, 3 is END
     level_1 = range(0,2)
     level_2 = range(2,6)
@@ -743,36 +742,33 @@ def encode_s2s(pre_path,batch_y,batch_size,n_steps,n_classes,node_added):
                 path_target[i,2,l+1] = 1
     return batch_y, label_vec_node, path_target  ## batch_y=path, label_vec_node=node, path_target=node only for hc
 
-## hc-s2s encoding #### ilsvrc65 and allstate
+## hc-s2s encoding #### 
 def encode_s2s_old(pre_path,batch_y,batch_size,n_steps,n_classes,node_added):
-    label_target = np.zeros((batch_size,n_classes+node_added), dtype=int) ## oi ilsvrc65 s2s
-    ## label_target = np.zeros((batch_size,n_classes), dtype=int)   ## allstate s2s
-    path_target = np.zeros((batch_size,n_steps,n_classes+node_added+2), dtype=int) ## oi ilsvrc65 s2s    
+    label_target = np.zeros((batch_size,n_classes+node_added), dtype=int) ## oi s2s
+    ## label_target = np.zeros((batch_size,n_classes), dtype=int)   
+    path_target = np.zeros((batch_size,n_steps,n_classes+node_added+2), dtype=int) ## oi s2s    
     path_target[:,n_steps-1,-1] = 1  # n_step = 4 / 012 are in tree, 3 is END
     for i in range(batch_size):
-        label = np.argmax(batch_y[i])  ## label = {0,...,17} allstate and ilsvrc65
-        label_target[i,pre_path[str(label)][3]-1] = 1  ## ilsvrc65 s2s
-        ## label_target[i,pre_path[str(label)][3]] = 1  ## allstate s2s
+        label = np.argmax(batch_y[i])  
+        label_target[i,pre_path[str(label)][3]-1] = 1  
+        ## label_target[i,pre_path[str(label)][3]] = 1  
         for j in range(n_steps-1):
             path_target[i,j,pre_path[str(label)][j]] = 1
     return label_target, path_target  ## label_target = for cnn, path_target = for s2s
 
 ## CNN encoding
 def encode_s2s_(pre_path,batch_y,batch_size,n_steps,n_classes,node_added):
-    label_target = np.zeros((batch_size,n_classes+node_added), dtype=int) ## ilsvrc65 s2s
-    ## label_target = np.zeros((batch_size,n_classes), dtype=int)   ## allstate s2s
+    label_target = np.zeros((batch_size,n_classes+node_added), dtype=int) 
     path_target = np.zeros((batch_size,n_steps,n_classes+node_added+2), dtype=int)
-    path_target[:,n_steps-1,-1] = 1  # n_step = 4 / 012 are in tree, 3 is END
+    path_target[:,n_steps-1,-1] = 1  
     for i in range(batch_size):
         label = np.argmax(batch_y[i]) + 7
         label_target[i,pre_path[str(label)][3]-1] = 1
-        label = np.argmax(batch_y[i]) + 7 ## ilsvrc65
-        label_target[i,pre_path[str(label)][3]-1] = 1  ## ilsvrc65
-        ## label = np.argmax(batch_y[i]) ## allstate
-        ## label_target[i,pre_path[str(label)][3]] = 1  ## allstate
+        label = np.argmax(batch_y[i]) + 7 
+        label_target[i,pre_path[str(label)][3]-1] = 1  
         for j in range(n_steps-1):
             path_target[i,j,pre_path[str(label)][j]] = 1
-    return label_target, path_target  ## label_target = for cnn, path_target = for s2s
+    return label_target, path_target  
 
 if args.model == "resnet-50"  or args.model == "vgg-16":
    # Define loss and optimizer
@@ -924,7 +920,7 @@ elif args.model == "hc": # ce
 '27'	:	[	1,	4,	27	],
 '28'	:	[	1,	5,	28	],
 '29'	:	[	1,	5,	29	]}
-       # define index at each label ############################### for ilsvrc65 s2s
+       # define index at each label ############################### for s2s
        level_1 = range(0,2)
        level_2 = range(2,6)
        level_3 = range(6,30)
@@ -999,7 +995,7 @@ def save_pred_resnet(infer_dir,pred_soft,batch_y_val,batch_y_val_node,batch_idx)
     return
 
 def save_pred_hc(pred_seq,n_classes,node_added,batch_size):
-    # define index at each label ############################### for ilsvrc65 s2s
+    # define index at each label ############################### for s2s
     level_1 = range(0,2)
     level_2 = range(2,6)
     level_3 = range(6,30)
