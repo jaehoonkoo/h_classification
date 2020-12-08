@@ -27,14 +27,12 @@ PR-path-bulk-ori-val-te.py: Compute path accuracy of general tree model
 ---------------------------------------------------------------
 To run:
 
-python hc-s2s-oi-v1-2-pr-run-val-se.py -server="nu" -model="resnet-50" -idx="idx-88" -batch=32 -lr=0.0001 -restore="" -prt="full" -opt="adam" -epoch=15 -base="res" -seed=1234
+python hc-s2s-oi-v1-2-pr-run-val-se.py -server="nu" -model="resnet-50" -idx="idx-0" -batch=32 -lr=0.0001 -restore="" -prt="full" -opt="adam" -epoch=15 -base="res" -seed=1234
 
-python hc-s2s-oi-v1-2-pr-run-val-se.py -server="nu" -model="hc" -idx="idx-89" -batch=32 -lr=0.00001 -input=2048 -hidden=1024 -conversion=3.1 -average="1;2;3 4" -restore="" -prt="full" -k=2 -opt="adam" -epoch=20 -alt1=-1 -alt2=20 -base="res" -seed=1234
+python hc-s2s-oi-v1-2-pr-run-val-se.py -server="nu" -model="hc" -idx="idx-0" -batch=32 -lr=0.0001 -input=2048 -hidden=1024 -conversion=3.1 -average="1;2;3 4" -restore="" -prt="full" -k=2 -opt="adam" -epoch=20 -alt1=-1 -alt2=20 -base="res" -seed=1234
 
-python hc-s2s-oi-v1-2-pr-run-val-att.py -server="nu" -model="resnet-50" -idx="idx-115" -batch=32 -lr=0.0001 -restore="" -prt="full" -opt="adam" -epoch=15 -base="res" -seed=1234 -attention=cbam_block
+python hc-s2s-oi-v1-2-pr-run-val-att.py -server="nu" -model="resnet-50" -idx="idx-0" -batch=32 -lr=0.0001 -restore="" -prt="full" -opt="adam" -epoch=15 -base="res" -seed=1234 -attention=cbam_block
 
-python hc-s2s-oi-v1-2-pr-run-val-att.py -server="nu" -model="hc" -idx="idx-116" -batch=32 -lr=0.00001 -input=256 -hidden=512 -conversion=3.1 -average="1;2;3 4" -restore="" -prt="full" -k=2 -opt="adam" -epoch=20 -alt1=-1 -alt2=20 -base="res" -seed=1234 -attention=cbam_block
+python hc-s2s-oi-v1-2-pr-run-val-att.py -server="nu" -model="hc" -idx="idx-0" -batch=32 -lr=0.0001 -input=256 -hidden=512 -conversion=3.1 -average="1;2;3 4" -restore="" -prt="full" -k=2 -opt="adam" -epoch=20 -alt1=-1 -alt2=20 -base="res" -seed=1234 -attention=cbam_block
  
-etc.
-
 ---------------------------------------------------------------
