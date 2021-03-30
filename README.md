@@ -4,7 +4,7 @@ Combined Convolutional and Recurrent Neural Networks for Hierarchical Classifica
 ---------------------------------------------------------------
 Author: [Jaehoon Koo](https://www.linkedin.com/in/jaehoon-koo-bb384aa1/)
 ---------------------------------------------------------------
-This directory contains sample scripts of DHNN paper (https://arxiv.org/abs/1809.09574v3) pusblished in [IEEE BigData 2020](http://bigdataieee.org/BigData2020/AcceptedPapers.html).
+This directory contains sample scripts of DHNN paper (https://ieeexplore.ieee.org/abstract/document/9378237) pusblished in [IEEE BigData 2020](http://bigdataieee.org/BigData2020/AcceptedPapers.html).
 
 Scripts are written in Python3 with Tensorflow based on TF-Slim library (https://github.com/google-research/tf-slim), SENet (https://github.com/kobiso/SENet-tensorflow-slim), CBAM (https://github.com/kobiso/CBAM-keras), and bidirectional RNN (https://github.com/aymericdamien/TensorFlow-Examples/blob/master/examples/3_NeuralNetworks/bidirectional_rnn.py).
 
